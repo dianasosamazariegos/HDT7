@@ -16,20 +16,23 @@ import java.util.*;
 public class Asociacion<K,V> implements Map.Entry<K,V> {
 
     
-    //variables
+    //Variables
     protected K key; 
     protected V value;
     private HashMap<K,V> association;
+    
+    //Extraído de: https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
 
     public Asociacion(K k, V v) {
         this.key = k;
         this.value = v;
     }
-
+    
     public Asociacion(K key) {
         this(key,null);
     }
-	
+    
+    //Metodo que implementa el HasMap para organizar las asociaciones
     public Asociacion() {
 	association = new HashMap<K,V>();
     }

@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Universidad del Valle de Guatemala
+Algoritmos y Estructuras de Datos
+Autor: Diana Sosa 18842  -Fecha: 18/03/2020
  */
 package hdt7;
 
@@ -15,7 +15,9 @@ public class BinaryTree {
 	BinaryTree left;
 	BinaryTree right;
 	
-	public BinaryTree() {
+	//Extraído de: https://www.baeldung.com/java-binary-tree
+        
+        public BinaryTree() {
 		data = null;
 		left = null;
 		right = null;
@@ -31,10 +33,11 @@ public class BinaryTree {
 		this.data = data;
 	}
     
-    public Asociacion<String,String> getValue() {
+        public Asociacion<String,String> getValue() {
 		return data;
 	}
-	
+        
+	//Metodo para insertar nodos
 	public void insert(Asociacion<String,String> value) {
 		
 		int res = stringCompare(value.getKey(), data.getKey());
@@ -58,6 +61,7 @@ public class BinaryTree {
 		
 	}
 	
+        //Metodo para encontrar un nodo
 	public boolean contains(String value) {
 		
 		int res = stringCompare(value, data.getKey());
@@ -82,6 +86,7 @@ public class BinaryTree {
 		}
 	}
 	
+        //Metodo que hace las traducciones
 	public String get(String key) {
 	
 		int res = stringCompare(key, data.getKey());
@@ -101,6 +106,7 @@ public class BinaryTree {
 
 	}
 	
+        //Metodo para mostrar los nodos en orden
 	public void printInOrder() {
 		
 		if (left != null) {
@@ -114,6 +120,7 @@ public class BinaryTree {
 		}
 	}
 	
+        //Metodo que compara las asociaciones
 	public static int stringCompare(String str1, String str2) { 
   
         int l1 = str1.length(); 
