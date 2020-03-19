@@ -13,8 +13,11 @@ public class HDT7 {
 
     public static void main(String[] args) {
         
-        Asociacion<String,String> asociacion = new Asociacion<String,String>();
-        BinaryTree binaryT = new BinaryTree();
+        Asociacion<String,String> asc;
+        BinaryTree dicc = new BinaryTree();
+        Scanner scan = new Scanner(System.in);
+        int resp = 0;
+                
         
         String FILENAME = "dictionary.txt";
         
@@ -22,11 +25,105 @@ public class HDT7 {
         FileReader fr = null;
         String output = "";
         
-        Scanner scan = new Scanner(System.in);
-        int resp = 0;
+        try {
+
+            fr = new FileReader(FILENAME);
+            br = new BufferedReader(fr);
+            String stringOutput ="";
+            int cont = 0;
+
+            while ((stringOutput = br.readLine()) != null) {
+		
+                int startParenIndex = 1 + stringOutput.indexOf("(");
+                int endParenIndex = stringOutput.indexOf(")");
+            	int commaIndex = stringOutput.indexOf(",");
+            	
+            	String key = stringOutput.substring(startParenIndex, commaIndex);
+            	String value = stringOutput.substring(2+commaIndex, endParenIndex);
+
+            	asc = new Asociacion<>(key.toLowerCase(), value.toLowerCase());
+            	
+            if (cont == 0) {
+            		dicc.setData(asc);
+            		cont++;
+            		
+            	} else {
+            		dicc.insert(asc);
+            	}
+		
+            }
+        } catch (IOException e) {
+                e.printStackTrace();
+
+            } finally {
+                try {
+                    if (br != null)
+                        br.close();
+                    
+                    if (fr != null)
+			fr.close();
+
+		} catch (IOException ex) {
+                    
+                    ex.printStackTrace();
+	
+                    }
+	}
         
-        System.out.println("   *** Menu *** ");
-        System.out.println(" 1. Diccionario de palabras");
+        String FILENAME2 = "text.txt";
+        br = null;
+	fr = null;
+        String traduction = "";
+        String stringOutput = "";
+        
+        try {
+
+            fr = new FileReader(FILENAME2);
+            br = new BufferedReader(fr);
+         
+            while ((stringOutput = br.readLine()) != null) {
+	
+                stringOutput = stringOutput.replace(".",""); // remueve todos los puntos
+                
+                String[] palabras = stringOutput.split(" ",0); // separa por espacios
+                
+                for (String p : palabras) {
+                	
+                	if (dicc.contains(p.toLowerCase())) {
+                		
+                		traduction += " " + dicc.get(p.toLowerCase());
+                		
+                	} else {
+                		
+                		traduction += " *" + p + "* ";
+                	}
+                }
+                
+                traduction+= ".\n"; // final de la oracion
+				
+            }
+            
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            } finally {
+                try {
+                    if (br != null)
+                        br.close();
+                    
+                    if (fr != null)
+			fr.close();
+
+		} catch (IOException ex) {
+                    
+                    ex.printStackTrace();
+	
+                }
+            }
+        
+        while (resp != 3) {
+        System.out.println("\n   *** Menu *** ");
+        System.out.println(" 1. Diccionario de palabras ordenado");
         System.out.println(" 2. Traducir un texto ");
         System.out.println(" 3. Salir  ");
         System.out.println(" -- Ingrese el número de la opción que desea escoger: ");
@@ -52,96 +149,19 @@ public class HDT7 {
             }
         }
         
-        try {
-
-            fr = new FileReader(FILENAME);
-            br = new BufferedReader(fr);
-
-            while ((output = br.readLine()) != null) {
-		
-                String[] outputArray = output.split(" ");
-		
-                asociacion.put(outputArray[0], outputArray[1]);
-            
-            }
-            
-        } catch (IOException e) {
-                e.printStackTrace();
-
-            } finally {
-                try {
-                    if (br != null)
-                        br.close();
-                    
-                    if (fr != null)
-			fr.close();
-
-		} catch (IOException ex) {
-                    
-                    ex.printStackTrace();
-	
-                    }
-	}
-    
-        
         if (resp == 1){
-            int r = 0;
-            System.out.println("   *** Menu de Diccionario*** ");
-            System.out.println(" 1. Insertar una nueva palabra");
-            System.out.println(" 2. Buscar una palabra en el diccionario ");
-            System.out.println(" 3. Mostrar el diccionario en orden ");
-            System.out.println(" -- Ingrese el número de la opción que desea escoger: "); 
-            try{
-                r = scan.nextInt();
-                scan.nextLine();
-            } catch (InputMismatchException e){
-                scan.nextLine();
-                System.out.println(" ## No ingreso un número! ##");
-            }
-         
-            while (r < 1 || r >4){
-                System.out.println(" ## No ingreso una opción valida! ## ");
-                System.out.println(" -- Ingrese la opcion desea elegir: ");
-            
-                try{
-                    r = scan.nextInt();
-                    scan.nextLine();
-                } catch (InputMismatchException e){ 
-                    scan.nextLine();
-                    System.out.println(" ## No ingreso un número! ##");
-                }
-            }
-            
-            if (r == 1){
-                String palabraIngles;
-                String palabraEspanol;
-                System.out.println(" -- Ingrese la palabra en Ingles que desea agregar: ");
-                palabraIngles = scan.nextLine();
-                System.out.println(" -- Ingrese la palabra en Español que desea agregar: ");
-                palabraEspanol = scan.nextLine();
-                asociacion.put(palabraIngles, palabraEspanol);
-                binaryT.insert(asociacion); 
-                System.out.println(" ## Asociacion/Traducción agregada ## ");
-            
-            } else if(r == 2){
-                String palabra;
-                System.out.println(" -- Ingrese la palabra en Espanol que desea buscar: ");
-                palabra = scan.nextLine();
-                if (binaryT.contains(palabra) == true){
-                    System.out.println(" ## PALABRA ENCONTRADA ## " + asociacion.getKey());
-                } else {
-                    System.out.println(" ## PALABRA NO ENCONTRADA ## ");
-                }
-                
-            } else if(r == 3){
-                binaryT.printInOrder();
-            }
-             
-            
-            
-        } 
-            
+            System.out.println("\n --Imprimiendo diccionario en forma In Order... \n");
+            dicc.printInOrder();
+          
+        } else if (resp == 2){
+            System.out.println("\n --Traduccion: \n");
+            System.out.println(traduction);
+        
+        } else {
+            System.out.println("**Saliendo.... ");
         }
+            
     }
-    
+}
+}
 

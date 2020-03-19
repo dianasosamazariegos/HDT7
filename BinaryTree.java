@@ -121,7 +121,7 @@ public class BinaryTree {
 	}
 	
         //Metodo que compara las asociaciones
-	public static int stringCompare(String str1, String str2) { 
+	public int stringCompare(String str1, String str2) { 
   
         int l1 = str1.length(); 
         int l2 = str2.length(); 
