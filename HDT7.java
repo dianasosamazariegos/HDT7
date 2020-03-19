@@ -18,7 +18,7 @@ public class HDT7 {
         Scanner scan = new Scanner(System.in);
         int resp = 0;
                 
-        
+        //Lectura del archivo "dictionary.txt" para ordenar el diccionario de traducciones
         String FILENAME = "dictionary.txt";
         
         BufferedReader br = null;
@@ -48,7 +48,7 @@ public class HDT7 {
             		cont++;
             		
             	} else {
-            		dicc.insert(asc);
+            		dicc.insert(asc); //se inserta el array en el diccionario
             	}
 		
             }
@@ -70,6 +70,7 @@ public class HDT7 {
                     }
 	}
         
+        //Lectura del archivo "text.txt" para poder hacer la traduccion de la oracion
         String FILENAME2 = "text.txt";
         br = null;
 	fr = null;
@@ -87,7 +88,7 @@ public class HDT7 {
                 
                 String[] palabras = stringOutput.split(" ",0); // separa por espacios
                 
-                for (String p : palabras) {
+                for (String p : palabras) { // se crea un ciclo para ordenar las palabras y separarlas
                 	
                 	if (dicc.contains(p.toLowerCase())) {
                 		
@@ -95,7 +96,7 @@ public class HDT7 {
                 		
                 	} else {
                 		
-                		traduction += " *" + p + "* ";
+                		traduction += " *" + p + "* "; //se imprime la traduccion
                 	}
                 }
                 
@@ -151,11 +152,11 @@ public class HDT7 {
         
         if (resp == 1){
             System.out.println("\n --Imprimiendo diccionario en forma In Order... \n");
-            dicc.printInOrder();
+            dicc.printInOrder(); // se llama a la funcion de BinaryTree (diccionario)
           
         } else if (resp == 2){
             System.out.println("\n --Traduccion: \n");
-            System.out.println(traduction);
+            System.out.println(traduction); // se imprime la traduccion 
         
         } else {
             System.out.println("**Saliendo.... ");
